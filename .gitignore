@@ -1,2 +1,9 @@
 mysql/volume/mysql
-sites/errors
+
+nginx/config/*
+!nginx/config/server_block.conf
+
+
+sites/*
+sites/errors/*
+!sites/errors/.gitkeep

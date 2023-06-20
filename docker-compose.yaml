@@ -12,7 +12,11 @@ services:
     volumes:
       # nesta pasta que os sites vão ficar
       - ./sites:/app
-      - ./nginx/config/server_block.conf:/opt/bitnami/nginx/conf/server_blocks/sites.conf
+      # exemplo carregando apenas um arquivo
+      # - ./nginx/config/server_block.conf:/opt/bitnami/nginx/conf/server_blocks/server_block.conf
+      
+      # exemplo carregando uma pasta inteira de configurações
+      - ./nginx/config:/opt/bitnami/nginx/conf/server_blocks
 
     #depends_on:
 

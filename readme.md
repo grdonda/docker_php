@@ -8,17 +8,33 @@ Este projeto nasceu para que fosse possivel eu administrar alguns sites de amigo
 
 ### Especificações
 ----
-Este projeto conta com Nginx para processar arquivos PHP, container **PHP-FPM** para processar os arquivos PHP quando necessários, **MySQL** para que os arquivos dos projetos em PHP possam acessar a base de dados para testes e o PhpMyAdmin para gerenciar a base de dados se necessário.
+Este projeto conta com Nginx para processar arquivos PHP, container **PHP-FPM** para processar os arquivos PHP quando necessários, **MySQL** para que os arquivos dos projetos em PHP possam acessar a base de dados para testes e o PhpMyAdmin para gerenciar a base de dados se necessário. Mais pode ser visto nas configurações do arquivo `docker-compose.yaml`.
 
-
-Comando para rodar na raiz do projeto sempre que desejar iniciar o projeto, atualizar as configurações etc.
+<br>
+Comando para ser executado na raiz do projeto sempre que desejar iniciar o projeto, atualizar as configurações etc.
 
 ```Shell
 $ docker compose -f "docker-compose.yaml" up -d --build --remove-orphans
 ```
 
+para fechar/desligar o projeto
+```Shell
+$ docker compose -f "docker-compose.yaml" down
+```
+
 <br>
 <br>
+
+## Acessos
+---
+
+### sites
+### banco de dados mysql
+### phpMyAdmin
+
+<br>
+<br>
+
 
 
 ## Requisitos

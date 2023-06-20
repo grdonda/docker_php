@@ -1,0 +1,71 @@
+version: "3.9"
+services:
+
+  nginx:
+    container_name: nginx
+    image: bitnami/nginx:latest
+    tty: true
+    ports:
+      - 80:8080
+    #env_file:
+    #  - ./nginx/env/nginx.env 
+    volumes:
+      # nesta pasta que os sites vão ficar
+      - ./sites:/app
+      - ./nginx/config/server_block.conf:/opt/bitnami/nginx/conf/server_blocks/sites.conf
+
+    #depends_on:
+
+    networks:
+      - dsi_server
+
+  phpfpm:
+    container_name: phpfpm
+    image: bitnami/php-fpm:latest
+    tty: true
+    #env_file:
+    #  - ./phpfpm/env/phpfpm.env
+    ports:
+      - 9000:9000
+    volumes:
+      - ./sites:/app
+    #  - ./phpfpm/config/custom.ini:/opt/bitnami/php/etc/php.ini
+    networks:
+      - dsi_server
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: bitnami/phpmyadmin:latest
+    tty: true
+    env_file:
+      - ./phpmyadmin/env/phpmyadmin.env
+    ports:
+      - 8081:8080
+    networks:
+      - dsi_server
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: mysql
+    image: bitnami/mysql:latest
+    tty: true
+    env_file:
+      - ./mysql/env/mysql.env
+    working_dir: /app/sql
+    ports:
+      - 3306:3306
+    volumes:
+      # configuração para persistencia de dados, ou seja, os dados não serão perdidos quando o container for reiniciado
+      # dessa forma, será possivel atualizar as versoes dentro da versão principal sempre que desejar. P.e.: 8.0 8.1 8.2 etc;
+      # mas mudar da versão 5.7 para 8. pode causar problemas de compatibilidade, então nessas situações, é melhor criar um novo container
+      # e definir a versão que deseja.
+      - ./mysql/volume/mysql:/bitnami/mysql/data
+      - ./mysql/sql:/app/sql
+      - ./mysql/entrypoint:/docker-entrypoint-initdb.d
+    networks:
+      - dsi_server
+
+networks:
+  dsi_server:
+    driver: bridge

@@ -66,7 +66,7 @@ services:
       # e definir a versão que deseja.
       - ./mysql/volume/mysql:/bitnami/mysql/data
       - ./mysql/sql:/app/sql
-      - ./mysql/entrypoint:/docker-entrypoint-initdb.d
+      - ./mysql/entrypoint:/docker-entrypoint-startdb.d
     networks:
       - dsi_server
 
